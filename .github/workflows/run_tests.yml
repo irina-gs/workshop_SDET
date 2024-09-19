@@ -24,11 +24,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run tests with xdist
+      - name: Run tests
         run: pytest -n 4 --alluredir=allure-results
-
-      - name: Generate Allure Report
-        run: allure serve allure-results
 
       - name: Store allure results
         uses: actions/upload-artifact@v3
@@ -75,4 +72,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1.2.9
-        
