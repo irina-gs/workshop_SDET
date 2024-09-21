@@ -1,4 +1,8 @@
 class BasePage:
-    def __init__(self, browser, timeout=5):
+    def __init__(self, browser, url, timeout=5):
         self.browser = browser
+        self.url = url
         self.browser.implicitly_wait(timeout)
+
+    def open_page(self):
+        self.browser.get(self.url)

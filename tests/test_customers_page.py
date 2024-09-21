@@ -1,5 +1,6 @@
 import allure
 
+from data.data import Config
 from pages.customers_page import CustomersPage
 from pages.main_page import MainPage
 
@@ -25,12 +26,12 @@ from pages.main_page import MainPage
 )
 def test_sort_customers_by_first_name(browser):
     with allure.step("Открытие главной страницы"):
-        main_page = MainPage(browser)
+        main_page = MainPage(browser, Config.URL)
         main_page.open_page()
 
     with allure.step("Нажатие кнопки Customers"):
         main_page.go_to_customers_page()
-        customers_page = CustomersPage(browser)
+        customers_page = CustomersPage(browser, browser.current_url)
 
     with allure.step("Получение списка имен First Name из таблицы Customers"):
         first_names = customers_page.get_list_of_first_name()
@@ -70,12 +71,12 @@ def test_sort_customers_by_first_name(browser):
 )
 def test_delete_customer(browser):
     with allure.step("Открытие главной страницы"):
-        main_page = MainPage(browser)
+        main_page = MainPage(browser, Config.URL)
         main_page.open_page()
 
     with allure.step("Нажатие кнопки Customers"):
         main_page.go_to_customers_page()
-        customers_page = CustomersPage(browser)
+        customers_page = CustomersPage(browser, browser.current_url)
 
     with allure.step("Извлечение из таблицы Customers списка имен First Name"):
         first_names = customers_page.get_list_of_first_name()

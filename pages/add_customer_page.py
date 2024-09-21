@@ -1,5 +1,6 @@
 import random
 
+from data.data import AddCustomerData
 from pages.locators import AddCustomerLocators
 from pages.base_page import BasePage
 
@@ -20,22 +21,19 @@ class AddCustomerPage(BasePage):
         return first_name
 
     def fill_in_first_name_field(self, text):
-        input_first_name = self.browser.find_element(*AddCustomerLocators.First_Name)
-        input_first_name.send_keys(text)
+        self.browser.find_element(*AddCustomerLocators.FIRST_NAME).send_keys(text)
 
     def fill_in_last_name_field(self, text):
-        input_last_name = self.browser.find_element(*AddCustomerLocators.Last_Name)
-        input_last_name.send_keys(text)
+        self.browser.find_element(*AddCustomerLocators.LAST_NAME).send_keys(text)
 
     def fill_in_post_code_field(self, text):
-        input_post_code = self.browser.find_element(*AddCustomerLocators.Post_Code)
-        input_post_code.send_keys(text)
+        self.browser.find_element(*AddCustomerLocators.POST_CODE).send_keys(text)
 
     def add_customer(self):
-        self.browser.find_element(*AddCustomerLocators.Add_Customer).click()
+        self.browser.find_element(*AddCustomerLocators.ADD_CUSTOMER).click()
 
     def should_be_alert(self):
         alert = self.browser.switch_to.alert
         alert_text = alert.text
         alert.accept()
-        assert AddCustomerLocators.Alert_Text in alert_text
+        assert AddCustomerData.ALERT_TEXT in alert_text

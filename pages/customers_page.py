@@ -24,27 +24,27 @@ class CustomersPage(BasePage):
         assert first_names_sorted == sorted(first_names, reverse=True)
 
     def get_list_of_first_name(self):
-        rows = self.browser.find_element(*CustomersLocators.Table).find_elements(*CustomersLocators.Rows)
+        rows = self.browser.find_element(*CustomersLocators.TABLE).find_elements(*CustomersLocators.ROWS)
 
         column_index = 0
         first_names = []
 
         for row in rows:
-            cells = row.find_elements(*CustomersLocators.Cells)
+            cells = row.find_elements(*CustomersLocators.CELLS)
             first_names.append(cells[column_index].text)
 
         return first_names
 
     def delete_customer(self, index_to_delete):
-        row = self.browser.find_element(*CustomersLocators.Table).find_elements(*CustomersLocators.Rows)[
+        row = self.browser.find_element(*CustomersLocators.TABLE).find_elements(*CustomersLocators.ROWS)[
             index_to_delete]
-        row.find_element(*CustomersLocators.Delete_Customer).click()
+        row.find_element(*CustomersLocators.DELETE_CUSTOMER).click()
 
     def should_be_delete(self, length_before_deleting):
-        rows = self.browser.find_element(*CustomersLocators.Table).find_elements(*CustomersLocators.Rows)
+        rows = self.browser.find_element(*CustomersLocators.TABLE).find_elements(*CustomersLocators.ROWS)
         length_after_deleting = len(rows)
 
         assert length_after_deleting == length_before_deleting - 1
 
     def sort_first_name(self):
-        self.browser.find_element(*CustomersLocators.Sort_First_Name).click()
+        self.browser.find_element(*CustomersLocators.SORT_FIRST_NAME).click()

@@ -1,16 +1,8 @@
 import allure
-import pytest
 
-from faker import Faker
-
+from data.data import Config
 from pages.add_customer_page import AddCustomerPage
 from pages.main_page import MainPage
-
-
-@pytest.fixture
-def last_name():
-    faker = Faker()
-    return faker.last_name()
 
 
 @allure.feature("Add customer page")
@@ -40,12 +32,12 @@ def last_name():
 )
 def test_add_customer(browser, last_name):
     with allure.step("Открытие главной страницы"):
-        main_page = MainPage(browser)
+        main_page = MainPage(browser, Config.URL)
         main_page.open_page()
 
     with allure.step("Нажатие кнопки Add Customer"):
         main_page.go_to_add_customer_page()
-        add_customer_page = AddCustomerPage(browser)
+        add_customer_page = AddCustomerPage(browser, browser.current_url)
 
     with allure.step("Генерация номера для поля Post Code"):
         post_code = add_customer_page.generate_post_code()
