@@ -21,16 +21,24 @@ class AddCustomerPage(BasePage):
         return first_name
 
     def fill_in_first_name_field(self, text):
-        self.browser.find_element(*AddCustomerLocators.FIRST_NAME).send_keys(text)
+        locator = AddCustomerLocators.FIRST_NAME
+        self.wait_to_element_visible(locator)
+        self.browser.find_element(*locator).send_keys(text)
 
     def fill_in_last_name_field(self, text):
-        self.browser.find_element(*AddCustomerLocators.LAST_NAME).send_keys(text)
+        locator = AddCustomerLocators.LAST_NAME
+        self.wait_to_element_visible(locator)
+        self.browser.find_element(*locator).send_keys(text)
 
     def fill_in_post_code_field(self, text):
-        self.browser.find_element(*AddCustomerLocators.POST_CODE).send_keys(text)
+        locator = AddCustomerLocators.POST_CODE
+        self.wait_to_element_visible(locator)
+        self.browser.find_element(*locator).send_keys(text)
 
     def add_customer(self):
-        self.browser.find_element(*AddCustomerLocators.ADD_CUSTOMER).click()
+        locator = AddCustomerLocators.ADD_CUSTOMER
+        self.wait_to_element_visible(locator)
+        self.browser.find_element(*locator).click()
 
     def should_be_alert(self):
         alert = self.browser.switch_to.alert
