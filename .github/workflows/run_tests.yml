@@ -29,7 +29,7 @@ jobs:
 
       - name: Start local server
         working-directory: ./test-service
-        run: docker-compose up --build -d
+        run: make run
 
       - name: Wait for the server to be ready
         run: |
