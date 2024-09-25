@@ -71,6 +71,12 @@ jobs:
           path: allure-results
           retention-days: 1
 
+      - name: Checkout server repository
+        uses: actions/checkout@v3
+        with:
+          repository: sun6r0/test-service
+          path: ./test-service
+
       - name: Stop local server
         working-directory: ./test-service
         run: docker-compose down
