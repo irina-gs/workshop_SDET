@@ -16,8 +16,27 @@ jobs:
     name: Test
 
     steps:
-      - name: Checkout repository
+      - name: Checkout server repository
         uses: actions/checkout@v3
+        with:
+          repository: sun6r0/test-service
+          path: ./test-service
+
+      - name: Install Docker
+        run: |
+          sudo apt-get update
+          sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+      - name: Start local server
+        working-directory: ./test-service
+        run: docker-compose up --build -d
+
+      - name: Wait for the server to be ready
+        run: |
+          until curl --output /dev/null --silent --head --fail http://localhost:8080; do
+            echo 'Waiting for the server...'
+            sleep 5
+          done
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -39,6 +58,10 @@ jobs:
           name: allure-results
           path: allure-results
           retention-days: 1
+
+      - name: Stop local server
+        working-directory: ./test-service
+        run: docker-compose down
 
   generate-report:
     runs-on: ubuntu-latest
