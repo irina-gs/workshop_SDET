@@ -33,20 +33,6 @@ jobs:
           docker-compose up --build -d
           sudo docker ps
 
-#      - name: Wait for the server to be ready
-#        run: |
-#          max_attempts=10
-#          attempt=0
-#          until curl --output /dev/null --silent --head --fail http://localhost:8080; do
-#            if [ $attempt -eq $max_attempts ]; then
-#              echo "Server did not start in time"
-#              exit 1
-#            fi
-#            echo "Waiting for the server to be ready... ($((attempt + 1))/$max_attempts)"
-#            attempt=$((attempt + 1))
-#            sleep 3  # Уменьшено время ожидания между проверками
-#          done
-
       - name: Checkout repository
         uses: actions/checkout@v3
 

@@ -6,7 +6,6 @@ from lib.modules.service import ServiceApi
 
 def create_entity(entity: EntityModel):
     response = ServiceApi().service_create_entity(entity.model_dump())
-    # import pdb; pdb.set_trace()
     assert response.status_code == HTTPStatus.OK
     return response.json()
 
