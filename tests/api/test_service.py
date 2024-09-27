@@ -22,14 +22,16 @@ from lib.service import create_entity, delete_entity, get_all_entities, get_enti
     """
 )
 def test_create_entity(entity):
-    with allure.step("Создание сущности"):
-        entity_id = create_entity(entity)
+    try:
+        with allure.step("Создание сущности"):
+            entity_id = create_entity(entity)
 
-    with allure.step("Проверка создания сущности"):
-        assert entity_id == EntityModel(**get_entity(entity_id)).id
+        with allure.step("Проверка создания сущности"):
+            assert entity_id == EntityModel(**get_entity(entity_id)).id, "Сущность не была создана"
 
-    with allure.step("Удаление тестовых данных"):
-        delete_entity(entity_id)
+    except:
+        with allure.step("Удаление тестовых данных"):
+            delete_entity(entity_id)
 
 
 @allure.feature("Service")
@@ -54,7 +56,7 @@ def test_delete_entity(entity_id_for_testing):
         delete_entity(entity_id_for_testing)
 
     with allure.step("Проверка удаления сущности"):
-        assert should_be_deleted(entity_id_for_testing)
+        assert should_be_deleted(entity_id_for_testing), "Сущность не была удалена"
 
 
 @allure.feature("Service")
@@ -81,7 +83,7 @@ def test_get_entity(entity_id_for_testing):
         entity = get_entity(entity_id_for_testing)
 
     with allure.step("Проверка получения сущности"):
-        assert entity_id_for_testing == EntityModel(**entity).id
+        assert entity_id_for_testing == EntityModel(**entity).id, "Сущность не была получена"
 
 
 @allure.feature("Service")
@@ -102,7 +104,7 @@ def test_get_all_entities():
         entities = get_all_entities()
 
     with allure.step("Проверка получения сущностей"):
-        assert isinstance(AllEntitiesModel(**entities), AllEntitiesModel)
+        assert isinstance(AllEntitiesModel(**entities), AllEntitiesModel), "Сущности не были получены"
 
 
 @allure.feature("Service")
@@ -129,4 +131,4 @@ def test_update_entity(entity_id_for_testing, entity):
         update_entity(entity_id_for_testing, entity)
 
     with allure.step("Проверка обновления сущности"):
-        assert entity.title == EntityModel(**get_entity(entity_id_for_testing)).title
+        assert entity.title == EntityModel(**get_entity(entity_id_for_testing)).title, "Сущность не была обновлена"
